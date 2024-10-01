@@ -1,0 +1,161 @@
+# ==== project ====
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["{{cookiecutter.underscored}}"]
+
+[project]
+name = "{{cookiecutter.hyphenated}}"
+version = "0.1"
+description = "{{cookiecutter.description or ''}}"
+readme = "README.md"
+authors = [{ name = "{{cookiecutter.author_name}}" }]
+license = { file = "LICENSE" }
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: Apache Software License",
+]
+keywords = []
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["ruff", "pre-commit", "ipython", "mypy"]
+test = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.hyphenated}}"
+
+# ==== mypy ====
+[tool.mypy]
+python_version = "3.12"
+check_untyped_defs = true
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+# plugins = ["pydantic.mypy"]
+
+# ==== ruff ====
+[tool.ruff]
+exclude = [
+  ".bzr",
+  ".direnv",
+  ".eggs",
+  ".git",
+  ".git-rewrite",
+  ".hg",
+  ".mypy_cache",
+  ".nox",
+  ".pants.d",
+  ".pytype",
+  ".ruff_cache",
+  ".svn",
+  ".tox",
+  ".venv",
+  "__pypackages__",
+  "_build",
+  "buck-out",
+  "build",
+  "dist",
+  "node_modules",
+  "venv",
+  "*/migrations/*.py",
+  "staticfiles/*",
+]
+line-length = 88
+indent-width = 4
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+  "F",
+  "E",
+  "W",
+  "C90",
+  "I",
+  "N",
+  "UP",
+  "YTT",
+  # "ANN", # flake8-annotations: we should support this in the future but 100+ errors atm
+  "ASYNC",
+  "S",
+  "BLE",
+  "FBT",
+  "B",
+  "A",
+  "COM",
+  "C4",
+  "DTZ",
+  "T10",
+  "DJ",
+  "EM",
+  "EXE",
+  "FA",
+  'ISC',
+  "ICN",
+  "G",
+  'INP',
+  'PIE',
+  "T20",
+  'PYI',
+  'PT',
+  "Q",
+  "RSE",
+  "RET",
+  "SLF",
+  "SLOT",
+  "SIM",
+  "TID",
+  "TCH",
+  "INT",
+  # "ARG", # Unused function argument
+  "PTH",
+  "ERA",
+  "PD",
+  "PGH",
+  "PL",
+  "TRY",
+  "FLY",
+  # "NPY",
+  # "AIR",
+  "PERF",
+  # "FURB",
+  # "LOG",
+  "RUF",
+]
+ignore = [
+  "S101",   # Use of assert detected https://docs.astral.sh/ruff/rules/assert/
+  "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
+  "SIM102", # sometimes it's better to nest
+  "UP038",  # Checks for uses of isinstance/issubclass that take a tuple
+  # of types for comparison.
+  # Deactivated because it can make the code slow:
+  # https://github.com/astral-sh/ruff/issues/7871
+  "N812",
+  "UP035",
+  "COM812",
+  "ISC001",
+  "UP007",
+  "SIM117",
+  "S603",
+]
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+# The fixes in extend-unsafe-fixes will require
+# provide the `--unsafe-fixes` flag when fixing.
+extend-unsafe-fixes = ["UP038"]
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+force-single-line = true

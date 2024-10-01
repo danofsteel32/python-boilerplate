@@ -1,0 +1,3 @@
+# {{ cookiecutter.hyphenated }}
+
+{{ cookiecutter.description }}
